@@ -26,6 +26,11 @@ export const CONTACT = {
   mapLink: 'https://www.google.com/maps/search/?api=1&query=English%20Therapy%20Mirpur-2%20Dhaka',
 };
 
+export const DEVELOPER = {
+  name: 'Ashikul Islam',
+  whatsapp: 'https://wa.me/8801792250709',
+};
+
 export const MEDIA = {
   launchVideo: '/video/launching-video.mp4',
 };

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import BrandLockup from './BrandLockup.jsx';
 import WhatsAppFloat from './WhatsAppFloat.jsx';
-import { BRAND, CONTACT, NAV_LINKS } from '../../data/site.js';
+import { BRAND, CONTACT, DEVELOPER, NAV_LINKS } from '../../data/site.js';
 
 export default function Footer() {
   return (
@@ -50,7 +50,18 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} English Therapy</span>
+        <span>
+          © {new Date().getFullYear()} English Therapy |{' '}
+          <a
+            className="footer-credit"
+            href={DEVELOPER.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            title={`Chat with ${DEVELOPER.name} on WhatsApp`}
+          >
+            Developed by {DEVELOPER.name}
+          </a>
+        </span>
         <span>All rights reserved · {BRAND.motto}</span>
       </div>
 
