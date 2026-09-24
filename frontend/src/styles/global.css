@@ -4883,3 +4883,26 @@ button[disabled].place-order {
   opacity: 0.7;
   cursor: wait;
 }
+
+/* ------------------------------------------------------------------
+   Additions: tablet breakpoint for the success-story feature. The
+   video's aspect-ratio could expand the grid beyond the viewport
+   between 760px and ~1000px, so it stacks there.
+   ------------------------------------------------------------------ */
+.success-video,
+.success-copy {
+  min-width: 0;
+  min-height: 0;
+}
+@media (max-width: 1000px) {
+  .success-feature {
+    grid-template-columns: 1fr;
+  }
+  .success-video {
+    aspect-ratio: 16/9;
+  }
+  .success-copy h3 {
+    font-size: 28px;
+    margin: 30px 0 14px;
+  }
+}

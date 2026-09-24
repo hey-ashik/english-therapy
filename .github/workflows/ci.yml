@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Lint & build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Smoke-test server
+        run: |
+          cp backend/.env.example backend/.env
+          PORT=5055 NODE_ENV=production node backend/src/server.js &
+          sleep 3
+          curl --fail http://localhost:5055/api/health
+          curl --fail -o /dev/null http://localhost:5055/courses
