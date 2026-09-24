@@ -1,0 +1,26 @@
+{
+  "name": "english-therapy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "English Therapy — Experience English. Express You. Full-stack website (React + Vite frontend, Node.js + Express backend).",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "npm-run-all --parallel dev:frontend dev:backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "dev:backend": "npm run dev --workspace backend",
+    "build": "npm run build --workspace frontend",
+    "start": "npm run start --workspace backend",
+    "lint": "npm run lint --workspace frontend",
+    "postinstall": "echo \"Dependencies installed. Run 'npm run dev' for development or 'npm run build && npm start' for production.\""
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
