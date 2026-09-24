@@ -32,7 +32,7 @@ jobs:
       - name: Smoke-test server
         run: |
           cp backend/.env.example backend/.env
-          PORT=5055 NODE_ENV=production node backend/src/server.js &
+          PORT=5055 NODE_ENV=production node server.js &
           sleep 3
           curl --fail http://localhost:5055/api/health
           curl --fail -o /dev/null http://localhost:5055/courses

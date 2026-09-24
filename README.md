@@ -67,6 +67,7 @@ english-therapy/
 ├── docs/                     # Deployment + architecture notes
 ├── .github/workflows/        # CI (build + lint on every push)
 ├── Resources/                # Original reference material (git-ignored)
+├── server.js                 # Entry file for Hostinger (boots backend/src/server.js)
 ├── package.json              # npm workspaces + root scripts
 └── README.md
 ```
@@ -146,7 +147,7 @@ See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for the step-by-step Hostinger 
 
 1. Push this repository to GitHub.
 2. In Hostinger hPanel create a **Node.js** application connected to that repository.
-3. Build command `npm install && npm run build`, start command `npm start`, entry `backend/src/server.js`.
+3. Framework **Express.js**, build script `build`, entry file `server.js`, output directory empty.
 4. Add the environment variables from `backend/.env.example`.
 5. Every push to `main` redeploys automatically.
 

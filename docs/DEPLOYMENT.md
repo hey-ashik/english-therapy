@@ -21,16 +21,24 @@ git push -u origin main
 2. Choose **Deploy from Git / GitHub**, authorise Hostinger and pick the repository and the `main` branch.
 3. Fill in the build settings:
 
-   | Setting          | Value                              |
-   | ---------------- | ---------------------------------- |
-   | Node version     | 20 (18 minimum)                    |
-   | Root directory   | `/` (repository root)              |
-   | Install command  | `npm install`                      |
-   | Build command    | `npm run build`                    |
-   | Start command    | `npm start`                        |
-   | Entry file       | `backend/src/server.js`            |
+   | Setting          | Value                                                      |
+   | ---------------- | ---------------------------------------------------------- |
+   | Framework preset | **Express.js** (auto-detected from the root `package.json`) |
+   | Node version     | 20 or newer                                                |
+   | Root directory   | `/` (repository root, leave empty)                         |
+   | Build script     | `build` (builds the React site into `frontend/dist`)       |
+   | Output directory | leave **empty** (Express serves the built site itself)     |
+   | Entry file       | `server.js` (repository root)                              |
 
    Hostinger injects `PORT`; the server reads it automatically.
+
+   > **Getting a black "403 Forbidden – Access to this resource on the server is denied!" page?**
+   > That is Hostinger's proxy telling you no app is running behind the domain. It happens when the
+   > framework was detected as a static site (or *Other* with an output directory) instead of
+   > Express, or when the build failed. Open the app in hPanel → **Settings & Redeploy**, set the
+   > values in the table above exactly (Framework *Express.js*, Entry file `server.js`, Output
+   > directory empty, Build script `build`), save, and click **Redeploy**. Then check
+   > **Deployments** for build errors and **Runtime logs** for startup errors.
 
 4. Add environment variables (hPanel → your app → *Environment variables*):
 
@@ -74,7 +82,7 @@ cd english-therapy
 npm install && npm run build
 cp backend/.env.example backend/.env   # edit values
 npm i -g pm2
-pm2 start backend/src/server.js --name english-therapy
+pm2 start server.js --name english-therapy
 pm2 save && pm2 startup
 ```
 

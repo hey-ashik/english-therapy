@@ -30,14 +30,23 @@ function createApp() {
   );
   app.use(compression());
   app.use(
-    cors({
-      origin(origin, callback) {
-        // Same-origin requests have no Origin header; allow them and any configured origin.
-        if (!origin || env.corsOrigins.length === 0 || env.corsOrigins.includes(origin)) {
-          return callback(null, true);
+    cors((req, callback) => {
+      const origin = req.headers.origin;
+      // Browsers send an Origin header on POST even for same-origin requests, so compare it
+      // against the Host the request arrived on (works on the Hostinger preview domain too).
+      let sameOrigin = false;
+      if (origin) {
+        try {
+          sameOrigin = new URL(origin).host === req.headers.host;
+        } catch {
+          sameOrigin = false;
         }
-        return callback(new Error('Not allowed by CORS'));
-      },
+      }
+      const allowed =
+        !origin || sameOrigin || env.corsOrigins.length === 0 || env.corsOrigins.includes(origin);
+      // origin:false simply omits the CORS headers, so the browser blocks cross-site callers
+      // without the server throwing a 500 for every disallowed request.
+      callback(null, { origin: allowed });
     }),
   );
   app.use(express.json({ limit: '100kb' }));
